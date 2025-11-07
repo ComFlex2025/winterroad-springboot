@@ -1,5 +1,6 @@
-package com.comflex.winterroad.domain;
+package com.comflex.winterroad.domain.weather.entity;
 
+import com.comflex.winterroad.domain.road.entity.RoadInfo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

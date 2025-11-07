@@ -1,4 +1,4 @@
-package com.comflex.winterroad.domain;
+package com.comflex.winterroad.domain.road.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

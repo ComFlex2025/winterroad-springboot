@@ -1,4 +1,4 @@
-package com.comflex.winterroad.service;
+package com.comflex.winterroad.domain.weather.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;

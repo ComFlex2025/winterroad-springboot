@@ -1,4 +1,4 @@
-package com.comflex.winterroad.dto;
+package com.comflex.winterroad.domain.weather;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package com.comflex.winterroad.repository;
+package com.comflex.winterroad.domain.road;
 
-import com.comflex.winterroad.domain.RoadInfo;
+import com.comflex.winterroad.domain.road.entity.RoadInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

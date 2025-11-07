@@ -1,6 +1,6 @@
-package com.comflex.winterroad.service;
+package com.comflex.winterroad.domain.weather.service;
 
-import com.comflex.winterroad.domain.RoadInfo;
+import com.comflex.winterroad.domain.road.entity.RoadInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

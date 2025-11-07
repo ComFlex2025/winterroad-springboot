@@ -1,10 +1,10 @@
-package com.comflex.winterroad.service;
+package com.comflex.winterroad.domain.weather.service;
 
-import com.comflex.winterroad.domain.RoadInfo;
-import com.comflex.winterroad.domain.WeatherLog;
-import com.comflex.winterroad.dto.WeatherResponseDto;
-import com.comflex.winterroad.repository.RoadInfoRepository;
-import com.comflex.winterroad.repository.WeatherLogRepository;
+import com.comflex.winterroad.domain.road.entity.RoadInfo;
+import com.comflex.winterroad.domain.weather.entity.WeatherLog;
+import com.comflex.winterroad.domain.weather.WeatherResponseDto;
+import com.comflex.winterroad.domain.road.RoadInfoRepository;
+import com.comflex.winterroad.domain.weather.WeatherLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

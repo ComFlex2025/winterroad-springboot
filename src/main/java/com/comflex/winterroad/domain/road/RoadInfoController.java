@@ -1,7 +1,6 @@
-package com.comflex.winterroad.controller;
+package com.comflex.winterroad.domain.road;
 
-import com.comflex.winterroad.domain.RoadInfo;
-import com.comflex.winterroad.repository.RoadInfoRepository;
+import com.comflex.winterroad.domain.road.entity.RoadInfo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

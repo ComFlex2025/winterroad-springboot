@@ -1,7 +1,6 @@
-package com.comflex.winterroad.controller;
+package com.comflex.winterroad.domain.weather;
 
-import com.comflex.winterroad.dto.WeatherResponseDto;
-import com.comflex.winterroad.service.WeatherQueryService;
+import com.comflex.winterroad.domain.weather.service.WeatherQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

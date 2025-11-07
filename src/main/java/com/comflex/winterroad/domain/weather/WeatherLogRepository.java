@@ -1,6 +1,6 @@
-package com.comflex.winterroad.repository;
+package com.comflex.winterroad.domain.weather;
 
-import com.comflex.winterroad.domain.WeatherLog;
+import com.comflex.winterroad.domain.weather.entity.WeatherLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
