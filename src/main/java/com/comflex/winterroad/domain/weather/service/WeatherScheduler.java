@@ -11,8 +11,9 @@ public class WeatherScheduler {
     private final WeatherService weatherService;
 
     // 1시간마다 실행
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(fixedDelay = 3600000, initialDelay = 10000) // 앱 시작 10초 후 첫 실행, 이후 1시간 간격
     public void runWeatherJob() {
         weatherService.updateWeatherData();
     }
+
 }

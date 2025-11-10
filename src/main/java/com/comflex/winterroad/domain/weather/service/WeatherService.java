@@ -52,18 +52,65 @@ public class WeatherService {
         log.info("🚗 총 {}개 도로 구간 날씨 데이터 수집 시작", roads.size());
 
         for (RoadInfo road : roads) {
-            try {
-                Map<String, Object> weather = callWeatherApi(road.getLatitude(), road.getLongitude());
-                if (weather == null || weather.isEmpty()) {
-                    log.warn("⚠️ 도로 {}: 수신된 날씨 데이터 없음", road.getId());
-                    continue;
+            int retryCount = 0;
+
+            while (retryCount < 3) {
+                try {
+                    Map<String, Object> weather = callWeatherApi(road.getLatitude(), road.getLongitude());
+
+                    if (weather == null || weather.isEmpty()) {
+                        retryCount++;
+                        long waitTime = 5000L * retryCount;
+                        log.warn("⚠️ 도로 {}: 수신된 날씨 데이터 없음 (재시도 {}/{}, {}ms 대기)",
+                                road.getId(), retryCount, 3, waitTime);
+                        Thread.sleep(waitTime);
+                        continue;
+                    }
+
+                    saveWeatherData(road, weather);
+                    log.info("🌤️ 도로 {} 저장 완료", road.getId());
+
+                    Thread.sleep(2500);
+                    break;
+
+                } catch (InterruptedException ie) {
+                    // 인터럽트 발생 시 현재 스레드 상태를 복원하고 즉시 종료
+                    Thread.currentThread().interrupt();
+                    log.error("⏹️ 스케줄러 스레드 인터럽트 발생: {}", ie.getMessage());
+                    return;
+
+                } catch (Exception e) {
+                    String msg = e.getMessage() != null ? e.getMessage() : "unknown error";
+
+                    if (msg.contains("429")) {
+                        retryCount++;
+                        long waitTime = 10000L * retryCount;
+                        log.warn("🚫 도로 {}: 요청 한도 초과 (429), {}ms 대기 후 재시도 ({}/{})",
+                                road.getId(), waitTime, retryCount, 3);
+                        try { Thread.sleep(waitTime); } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt(); return;
+                        }
+                        continue;
+                    }
+
+                    if (msg.contains("504")) {
+                        retryCount++;
+                        long waitTime = 8000L * retryCount;
+                        log.warn("🌐 도로 {}: 서버 응답 지연 (504), {}ms 대기 후 재시도 ({}/{})",
+                                road.getId(), waitTime, retryCount, 3);
+                        try { Thread.sleep(waitTime); } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt(); return;
+                        }
+                        continue;
+                    }
+
+                    log.error("❌ 도로 {} 날씨 수집 실패: {}", road.getId(), msg);
+                    break;
                 }
-                saveWeatherData(road, weather);
-                Thread.sleep(1000); // API rate limit 대응 (초당 5회)
-            } catch (Exception e) {
-                log.error("❌ 도로 {} 날씨 수집 실패: {}", road.getId(), e.getMessage());
             }
         }
+
+
     }
 
     /** 2️⃣ 기상청 API 호출 및 파싱 */
