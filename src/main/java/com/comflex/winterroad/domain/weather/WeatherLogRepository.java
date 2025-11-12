@@ -9,10 +9,12 @@ import java.util.Optional;
 public interface WeatherLogRepository extends JpaRepository<WeatherLog, Integer> {
 
     // 최신 날씨 (인덱스 활용)
-    @Query("""
-        SELECT w FROM WeatherLog w
-        WHERE w.roadInfo.id = :roadId
-        ORDER BY w.timestamp DESC
-    """)
+    @Query(value = """
+    SELECT * FROM weather_log
+    WHERE road_id = :roadId
+    ORDER BY timestamp DESC
+    LIMIT 1
+""", nativeQuery = true)
     Optional<WeatherLog> findLatestByRoadId(Integer roadId);
+
 }

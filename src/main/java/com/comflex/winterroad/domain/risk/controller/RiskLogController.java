@@ -2,6 +2,7 @@ package com.comflex.winterroad.domain.risk.controller;
 
 import com.comflex.winterroad.domain.risk.entity.RiskLog;
 import com.comflex.winterroad.domain.risk.repository.RiskLogRepository;
+import com.comflex.winterroad.domain.risk.service.RiskCalculatorService;
 import com.comflex.winterroad.domain.road.entity.RoadInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ public class RiskLogController {
 
     /**
      * ✅ 전체 도로별 최신 위험도 조회
-     * 프론트 지도에서 도로 색상 표시용
      */
     @GetMapping
     public ResponseEntity<List<RiskLog>> getAllRiskLogs() {
@@ -46,4 +46,8 @@ public class RiskLogController {
         List<RiskLog> top = riskLogRepository.findTop10ByRiskScore();
         return ResponseEntity.ok(top);
     }
+
+
+
+
 }
