@@ -27,13 +27,14 @@ public interface RoadInfoRepository extends JpaRepository<RoadInfo, Integer> {
 
     // ✅ 위험도 JOIN 조회용 (최신 risk_log 포함)
     @Query("""
-        SELECT r.id AS id, r.roadName AS roadName, r.latitude AS latitude, 
-               r.longitude AS longitude, r.description AS description, 
-               r.regionCode AS regionCode, rl.riskScore AS riskScore
-        FROM RoadInfo r
-        LEFT JOIN RiskLog rl ON rl.road.id = r.id
-        WHERE r.latitude BETWEEN :minLat AND :maxLat
-          AND r.longitude BETWEEN :minLon AND :maxLon
-    """)
+    SELECT r.id AS id, r.roadName AS roadName, r.latitude AS latitude, 
+           r.longitude AS longitude, r.description AS description, 
+           r.regionCode AS regionCode, rl.riskScore AS riskScore, rl.riskColor AS riskColor
+    FROM RoadInfo r
+    LEFT JOIN RiskLog rl ON rl.road.id = r.id
+    WHERE r.latitude BETWEEN :minLat AND :maxLat
+      AND r.longitude BETWEEN :minLon AND :maxLon
+""")
     List<Object[]> findNearbyWithRisk(double minLat, double maxLat, double minLon, double maxLon);
+
 }

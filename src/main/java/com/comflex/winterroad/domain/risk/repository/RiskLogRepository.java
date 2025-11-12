@@ -29,11 +29,17 @@ public interface RiskLogRepository extends JpaRepository<RiskLog, Long> {
 
     @Query("""
     SELECT new com.comflex.winterroad.domain.risk.dto.RiskResponseDto(
-        r.road.id, r.road.roadName, r.road.regionCode, r.riskScore, r.updatedAt
+        r.road.id,
+        r.road.roadName,
+        r.road.regionCode,
+        r.riskScore,
+        r.riskColor,
+        r.updatedAt
     )
     FROM RiskLog r
 """)
     List<RiskResponseDto> findAllWithRoad();
+
 
 
 }

@@ -1,21 +1,17 @@
 package com.comflex.winterroad.domain.road.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
-@Builder
-public class RoadInfoResponseDto {
-    private Integer id;
+@AllArgsConstructor
+public class GpsRiskResponseDto {
+    private Integer roadId;
     private String roadName;
-    private String description;
-    private String regionCode;
     private double latitude;
     private double longitude;
-    private Double  riskScore;
+    private Double riskScore;
     private String riskColor;
 }

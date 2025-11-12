@@ -17,6 +17,7 @@ public class RiskResponseDto {
     private String roadName;
     private String regionCode;
     private Double riskScore;
+    private String riskColor;
     private LocalDateTime updatedAt;
 
 }

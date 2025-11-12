@@ -6,5 +6,7 @@ import lombok.Data;
 public class RouteRequestDto {
     private double startLat;
     private double startLon;
+    private double endLat;
+    private double endLon;
     private String endAddress;
 }
