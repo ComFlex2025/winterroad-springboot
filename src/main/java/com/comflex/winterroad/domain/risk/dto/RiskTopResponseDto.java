@@ -1,23 +1,17 @@
 package com.comflex.winterroad.domain.risk.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class RiskResponseDto {//범용 Dto
+public class RiskTopResponseDto { //JPQL 최적화 DTO
     private Integer roadId;
     private String roadName;
     private String regionCode;
     private Double riskScore;
     private String riskColor;
     private LocalDateTime updatedAt;
-
 }

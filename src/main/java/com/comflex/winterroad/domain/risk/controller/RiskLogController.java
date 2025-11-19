@@ -1,10 +1,13 @@
 package com.comflex.winterroad.domain.risk.controller;
 
+import com.comflex.winterroad.domain.risk.dto.RiskTopResponseDto;
 import com.comflex.winterroad.domain.risk.entity.RiskLog;
 import com.comflex.winterroad.domain.risk.repository.RiskLogRepository;
 import com.comflex.winterroad.domain.risk.service.RiskCalculatorService;
 import com.comflex.winterroad.domain.road.entity.RoadInfo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +34,18 @@ public class RiskLogController {
      * /api/risk/road/12 → 도로 ID 12의 최신 위험도 반환
      */
     @GetMapping("/road/{roadId}")
-    public ResponseEntity<RiskLog> getRiskByRoad(@PathVariable Integer roadId) {
-        return riskLogRepository.findLatestByRoadId(roadId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RiskTopResponseDto> getLatestRisk(@PathVariable Integer roadId) {
+
+        Pageable pageable = PageRequest.of(0, 1);
+
+        List<RiskTopResponseDto> result =
+                riskLogRepository.findLatestByRoadId(roadId, pageable);
+
+        if (result.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(result.get(0));
     }
 
     /**
@@ -42,10 +53,15 @@ public class RiskLogController {
      * 프론트 “가장 위험한 도로 TOP10” 표시에 활용
      */
     @GetMapping("/top")
-    public ResponseEntity<List<RiskLog>> getTopRiskRoads() {
-        List<RiskLog> top = riskLogRepository.findTop10ByRiskScore();
+    public ResponseEntity<List<RiskTopResponseDto>> getTopRiskRoads() {
+
+        Pageable pageable = PageRequest.of(0, 10);
+
+        List<RiskTopResponseDto> top = riskLogRepository.findTopRisk(pageable);
+
         return ResponseEntity.ok(top);
     }
+
 
 
 
