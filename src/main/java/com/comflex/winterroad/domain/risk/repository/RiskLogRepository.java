@@ -19,7 +19,6 @@ public interface RiskLogRepository extends JpaRepository<RiskLog, Long> {
         r.road.roadName,
         r.road.regionCode,
         r.riskScore,
-        r.riskColor,
         r.updatedAt
     )
     FROM RiskLog r
@@ -35,7 +34,6 @@ public interface RiskLogRepository extends JpaRepository<RiskLog, Long> {
         r.road.roadName,
         r.road.regionCode,
         r.riskScore,
-        r.riskColor,
         r.updatedAt
     )
     FROM RiskLog r
