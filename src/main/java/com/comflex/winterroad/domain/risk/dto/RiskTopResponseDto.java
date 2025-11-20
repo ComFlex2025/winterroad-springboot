@@ -15,6 +15,8 @@ public class RiskTopResponseDto {
     private String riskLevel;
     private String updatedAt;
 
+    private Integer idx;
+
     public RiskTopResponseDto(Integer roadId,
                               String roadName,
                               String regionCode,
@@ -39,4 +41,9 @@ public class RiskTopResponseDto {
                 ? updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 : null;
     }
+    public void setIdx(Integer idx) {
+        this.idx = idx;
+    }
+
+
 }

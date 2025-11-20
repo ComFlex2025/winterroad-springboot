@@ -19,6 +19,7 @@ import java.util.List;
 public class RiskLogController {
 
     private final RiskLogRepository riskLogRepository;
+    private final RiskCalculatorService riskCalculatorService;
 
     /**
      * ✅ 전체 도로별 최신 위험도 조회
@@ -54,14 +55,9 @@ public class RiskLogController {
      */
     @GetMapping("/top")
     public ResponseEntity<List<RiskTopResponseDto>> getTopRiskRoads() {
-
-        Pageable pageable = PageRequest.of(0, 10);
-
-        List<RiskTopResponseDto> top = riskLogRepository.findTopRisk(pageable);
-
+        List<RiskTopResponseDto> top = riskCalculatorService.getTopRiskRoads();
         return ResponseEntity.ok(top);
     }
-
 
 
 

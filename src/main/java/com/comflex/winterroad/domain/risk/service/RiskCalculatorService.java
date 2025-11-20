@@ -1,10 +1,14 @@
 package com.comflex.winterroad.domain.risk.service;
 
+import com.comflex.winterroad.domain.risk.dto.RiskTopResponseDto;
+import com.comflex.winterroad.domain.risk.repository.RiskLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -12,6 +16,19 @@ import org.springframework.stereotype.Service;
 public class RiskCalculatorService {
 
     private final JdbcTemplate jdbcTemplate;
+    private final RiskLogRepository riskLogRepository;
+
+    public List<RiskTopResponseDto> getTopRiskRoads() {
+        List<RiskTopResponseDto> list =
+                riskLogRepository.findTopRisk(PageRequest.of(0, 10));
+
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setIdx(i + 1); // 1 ~ 10
+        }
+
+        return list;
+    }
+
 
     // 매시 정각마다 실행 (매시간 위험도 갱신)
     @Scheduled(cron = "0 0 * * * *")
