@@ -31,8 +31,8 @@ public class RiskLog {
     @Column(name = "risk_score")
     private Double riskScore;
 
-    @Column(name = "risk_color")
-    private String riskColor;
+    @Column(name = "risk_level")
+    private String riskLevel;
 
 
 

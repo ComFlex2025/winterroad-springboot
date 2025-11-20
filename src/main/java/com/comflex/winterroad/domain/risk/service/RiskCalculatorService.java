@@ -19,24 +19,25 @@ public class RiskCalculatorService {
         log.info("🚨 위험도 계산 및 risk_log 테이블 갱신 시작");
 
         String sql = """
-INSERT INTO risk_log (road_id, risk_score, risk_color, updated_at)
-SELECT road_id, risk_score,
+INSERT INTO risk_log (road_id, risk_score, risk_level, updated_at)
+SELECT road_id,
+       risk_score,
        CASE
-         WHEN risk_score >= 80 THEN 'RED'
-         WHEN risk_score >= 50 THEN 'ORANGE'
-         WHEN risk_score >= 30 THEN 'YELLOW'
-         WHEN risk_score >= 10 THEN 'GREEN'
-         ELSE 'BLUE'
-       END AS risk_color,
+         WHEN risk_score >= 80 THEN '매우 위험'
+         WHEN risk_score >= 60 THEN '위험'
+         WHEN risk_score >= 40 THEN '보통'
+         WHEN risk_score >= 20 THEN '일반'
+         ELSE '안전'
+       END AS risk_level,
        NOW() AT TIME ZONE 'Asia/Seoul'
 FROM vw_risk_computed
 ON CONFLICT (road_id)
 DO UPDATE SET
   risk_score = EXCLUDED.risk_score,
-  risk_color = EXCLUDED.risk_color,
+  risk_level = EXCLUDED.risk_level,
   updated_at = NOW() AT TIME ZONE 'Asia/Seoul';
-
 """;
+
 
 
         try {

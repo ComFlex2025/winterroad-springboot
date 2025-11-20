@@ -59,7 +59,7 @@ public class RouteService {
                         .description((String) r[4])
                         .regionCode((String) r[5])
                         .riskScore((Double) r[6])
-                        .riskColor( (String) r[7])
+                        .riskLevel( (String) r[7])
                         .build())
                 .filter(dto -> routePoints.stream().anyMatch(p ->
                         haversineDistance(dto.getLatitude(), dto.getLongitude(), p.getLat(), p.getLon()) < thresholdKm))

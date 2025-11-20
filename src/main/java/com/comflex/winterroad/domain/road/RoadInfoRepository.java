@@ -29,7 +29,7 @@ public interface RoadInfoRepository extends JpaRepository<RoadInfo, Integer> {
     @Query("""
     SELECT r.id AS id, r.roadName AS roadName, r.latitude AS latitude, 
            r.longitude AS longitude, r.description AS description, 
-           r.regionCode AS regionCode, rl.riskScore AS riskScore, rl.riskColor AS riskColor
+           r.regionCode AS regionCode, rl.riskScore AS riskScore, rl.riskLevel AS riskLevel
     FROM RoadInfo r
     LEFT JOIN RiskLog rl ON rl.road.id = r.id
     WHERE r.latitude BETWEEN :minLat AND :maxLat

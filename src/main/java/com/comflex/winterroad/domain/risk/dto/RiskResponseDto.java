@@ -17,7 +17,7 @@ public class RiskResponseDto {//범용 Dto
     private String roadName;
     private String regionCode;
     private Double riskScore;
-    private String riskColor;
+    private String riskLevel;
     private LocalDateTime updatedAt;
 
 }

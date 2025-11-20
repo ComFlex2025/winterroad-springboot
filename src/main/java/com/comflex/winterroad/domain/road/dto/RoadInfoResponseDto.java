@@ -17,5 +17,5 @@ public class RoadInfoResponseDto {
     private double latitude;
     private double longitude;
     private Double  riskScore;
-    private String riskColor;
+    private String riskLevel;
 }

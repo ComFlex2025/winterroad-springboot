@@ -1,6 +1,5 @@
 package com.comflex.winterroad.domain.risk.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -13,12 +12,14 @@ public class RiskTopResponseDto {
     private String roadName;
     private String regionCode;
     private Double riskScore;
-    private String updatedAt;   // ← String으로 변경
+    private String riskLevel;
+    private String updatedAt;
 
     public RiskTopResponseDto(Integer roadId,
                               String roadName,
                               String regionCode,
                               Double riskScore,
+                              String riskLevel,
                               LocalDateTime updatedAt) {
 
         this.roadId = roadId;
@@ -30,7 +31,10 @@ public class RiskTopResponseDto {
                 ? Math.round(riskScore * 100) / 100.0
                 : null;
 
-        // ⭐ 날짜 포맷 변환
+        // ⭐ riskLevel 저장
+        this.riskLevel = riskLevel;
+
+        // 날짜 포맷 변환
         this.updatedAt = updatedAt != null
                 ? updatedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 : null;
